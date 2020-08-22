@@ -1,1 +1,2 @@
-# AtCoder
+# imos法
+## 例題
