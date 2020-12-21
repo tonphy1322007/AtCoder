@@ -1,0 +1,24 @@
+#include<iostream>
+#include<vector>
+#include<functional>
+using namespace std;
+
+class SegmentTree{
+private:
+  int size;
+  int monoid;
+  int data[200005];
+  int lazy[200005];
+  function<int(int,int)> opr;
+
+public:
+  SegmentTree(int n,int m,function<int(int,int)> o) : size(1), monoid(m){
+    opr = o;
+  }
+};
+
+int main(){
+  function<int(int,int)> f= int(int a,int b){return(a+b);};
+  SegmentTree seg(10,0,f);
+  return(0);
+}
