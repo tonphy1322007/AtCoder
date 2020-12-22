@@ -10,7 +10,7 @@ private:
   int data[1200005];
   function<int(int, int)> opr;
 
-  int sum_rec(int a, int b, int left, int right, int node){
+  int query_rec(int a, int b, int left, int right, int node){
     if(a <= left && right <= b){
       return(data[node]);
     }
@@ -18,9 +18,9 @@ private:
       return(monoid);
     }
 
-    int vleft = sum_rec(a, b, left, (left + right) / 2, node * 2);
-    int vright = sum_rec(a, b, (left + right) / 2 + 1, right, node * 2 + 1);
-    return(vleft + vright);
+    int vleft = query_rec(a, b, left, (left + right) / 2, node * 2);
+    int vright = query_rec(a, b, (left + right) / 2 + 1, right, node * 2 + 1);
+    return(opr(vleft, vright));
   }
 
 public:
@@ -61,8 +61,8 @@ public:
     return;
   }
 
-  int sum(int left, int right){
-    return(sum_rec(left, right, 1, size, 1));
+  int query(int left, int right){
+    return(query_rec(left, right, 1, size, 1));
   }
 };
 

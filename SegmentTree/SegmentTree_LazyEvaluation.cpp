@@ -9,8 +9,8 @@ class SegmentTree{
 private:
   int size;
   int monoid;
-  int data[1200005];
-  int lazy[1200005];
+  int data[500005];
+  int lazy[500005];
   function<int(int, int)> opr;
 
   void eval(int node){
@@ -28,7 +28,7 @@ private:
     return;
   }
 
-  int sum_rec(int a, int b, int left, int right, int node){
+  int query_rec(int a, int b, int left, int right, int node){
     eval(node);
     
     if(a <= left && right <= b){
@@ -38,9 +38,9 @@ private:
       return(monoid);
     }
 
-    int vleft = sum_rec(a, b, left, (left + right) / 2, node * 2);
-    int vright = sum_rec(a, b, (left + right) / 2 + 1, right, node * 2 + 1);
-    return(vleft + vright);
+    int vleft = query_rec(a, b, left, (left + right) / 2, node * 2);
+    int vright = query_rec(a, b, (left + right) / 2 + 1, right, node * 2 + 1);
+    return(opr(vleft, vright));
   }
 
   void update_rec(int a, int b, int left, int right, int node, int x){
@@ -98,8 +98,8 @@ public:
     update_rec(left, right, 1, size, 1, x);
   }
 
-  int sum(int left, int right){
-    return(sum_rec(left, right, 1, size, 1));
+  int query(int left, int right){
+    return(query_rec(left, right, 1, size, 1));
   }
 };
 

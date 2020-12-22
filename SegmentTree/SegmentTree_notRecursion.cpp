@@ -48,19 +48,19 @@ public:
     return;
   }
 
-  int sum(int left, int right){
-    int s = 0;
+  int query(int left, int right){
+    int ans = monoid;
     while(left <= right){
       if((left & 1) == 1){
-	s += data[left];
+	ans = opr(ans, data[left]);
       }
       if((right & 1) == 0){
-	s += data[right];
+	ans = opr(ans, data[right]);
       }
       left++; right--;
       left<<=1; right<<=1;
     }
-    return(s);
+    return(ans);
   }
 };
 
