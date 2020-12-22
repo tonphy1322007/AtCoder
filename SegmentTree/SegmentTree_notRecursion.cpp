@@ -10,19 +10,6 @@ private:
   int data[1200005];
   function<int(int, int)> opr;
 
-  int sum_rec(int a, int b, int left, int right, int node){
-    if(a <= left && right <= b){
-      return(data[node]);
-    }
-    if(right < a || b < left){
-      return(monoid);
-    }
-
-    int vleft = sum_rec(a, b, left, (left + right) / 2, node * 2);
-    int vright = sum_rec(a, b, (left + right) / 2 + 1, right, node * 2 + 1);
-    return(vleft + vright);
-  }
-
 public:
   SegmentTree(int n, int m, function<int(int, int)> o) : size(1), monoid(m), opr(o) {
     while(size < n){
@@ -62,7 +49,18 @@ public:
   }
 
   int sum(int left, int right){
-    return(sum_rec(left, right, 1, size, 1));
+    int s = 0;
+    while(left <= right){
+      if((left & 1) == 1){
+	s += data[left];
+      }
+      if((right & 1) == 0){
+	s += data[right];
+      }
+      left++; right--;
+      left<<=1; right<<=1;
+    }
+    return(s);
   }
 };
 

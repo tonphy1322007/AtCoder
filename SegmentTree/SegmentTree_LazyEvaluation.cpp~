@@ -8,6 +8,7 @@ private:
   int size;
   int monoid;
   int data[1200005];
+  int lazy[1200005];
   function<int(int, int)> opr;
 
   int sum_rec(int a, int b, int left, int right, int node){
