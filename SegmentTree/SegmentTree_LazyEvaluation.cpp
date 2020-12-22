@@ -18,12 +18,12 @@ private:
       return;
     }
     
-    data[node] = lazy[node];
     if(node < size){
       lazy[node * 2] = lazy[node] / 2;
       lazy[node * 2 + 1] = lazy[node] / 2;
     }
-
+    
+    data[node] = lazy[node];
     lazy[node] = UNSET;
     return;
   }
@@ -45,16 +45,19 @@ private:
 
   void update_rec(int a, int b, int left, int right, int node, int x){
     eval(node);
-
+    
     if(a <= left && right <= b){
       lazy[node] = x * (right - left + 1);
+      eval(node);
+      return;
     }
     if(right < b || a < left){
       return;
     }
-
+    
     update_rec(a, b, left, (left + right) / 2, node * 2, x);
     update_rec(a, b, (left + right) / 2 + 1, right, node * 2 + 1, x);
+    data[node] = opr(data[node * 2], data[node * 2 + 1]);
     return;
   }
 
