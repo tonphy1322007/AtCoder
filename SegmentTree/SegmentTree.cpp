@@ -6,7 +6,7 @@ using namespace std;
 class SegmentTree{
 private:
   int size;
-  int monoid;
+  int element;
   int data[1200005];
   function<int(int, int)> opr;
 
@@ -15,7 +15,7 @@ private:
       return(data[node]);
     }
     if(right < a || b < left){
-      return(monoid);
+      return(element);
     }
 
     int vleft = query_rec(a, b, left, (left + right) / 2, node * 2);
@@ -24,17 +24,17 @@ private:
   }
 
 public:
-  SegmentTree(int n, int m, function<int(int, int)> o) : size(1), monoid(m), opr(o) {
+  SegmentTree(int n, int e, function<int(int, int)> o) : size(1), element(e), opr(o) {
     while(size < n){
       size *= 2;
     }
 
     for(int i = 1; i < size * 2; i++){
-      data[i] = monoid;
+      data[i] = element;
     }
   }
 
-  SegmentTree(vector<int> vec, int m, function<int(int, int)> o) : size(1), monoid(m), opr(o) {
+  SegmentTree(vector<int> vec, int e, function<int(int, int)> o) : size(1), element(e), opr(o) {
     while(size < vec.size()){
       size *= 2;
     }
@@ -43,7 +43,7 @@ public:
       data[size + i] = vec[i];
     }
     for(int i = vec.size(); i < size; i++){
-      data[size + i] = monoid;
+      data[size + i] = element;
     }
     
     for(int i = size - 1; i > 0; i--){
