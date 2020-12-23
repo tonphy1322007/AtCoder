@@ -8,8 +8,8 @@ const int INF=1<<30;
 class SegmentTree{
   int size;
   int data[1200005];
-
-  int min_rec(int a,int b,int left,int right,int node){
+  
+  int MIN_rec(int a,int b,int left,int right,int node){
     if(a<=left&&right<=b){
       return(data[node]);
     }
@@ -17,8 +17,8 @@ class SegmentTree{
       return(INF);
     }
 
-    int vleft=min_rec(a,b,left,(left+right)/2,node*2);
-    int vright=min_rec(a,b,(left+right)/2+1,right,node*2+1);
+    int vleft=MIN_rec(a,b,left,(left+right)/2,node*2);
+    int vright=MIN_rec(a,b,(left+right)/2+1,right,node*2+1);
     return(min(vleft,vright));
   }
 
@@ -51,8 +51,8 @@ public:
     return;
   }
 
-  int min(int left,int right){
-    return(min_rec(left,right,1,size,1));
+  int MIN(int left,int right){
+    return(MIN_rec(left,right,1,size,1));
   }
 };
   
